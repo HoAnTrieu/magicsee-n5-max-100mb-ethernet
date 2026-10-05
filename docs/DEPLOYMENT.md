@@ -39,24 +39,22 @@ Nếu khác, không bypass guard. Tên file trùng không chứng minh nội dun
 1. Giải nén ZIP. Bên trong có thư mục `magicsee-n5-max-ethernet`.
 2. Mở kết nối SSH bằng MobaXterm. Qua panel SFTP, upload cả thư mục vào home user Armbian. Ví dụ thư mục đích `~/magicsee-n5-max-ethernet`.
 3. Cắm dây LAN vào router/switch. Giữ khả năng SSH qua Wi-Fi hoặc console và tháo SD để phục hồi.
-4. Chạy từ thư mục gốc dự án:
+4. Chạy một file ở gốc dự án:
 
 ```bash
 cd ~/magicsee-n5-max-ethernet
-sha256sum -c SHA256SUMS
-python3 scripts/verify.py
-sudo python3 scripts/install.py --dry-run
+sudo bash install.sh
 ```
 
-Dry-run không ghi boot file. Nếu tất cả kiểm tra pass:
+Script tự thực hiện kiểm tra và cài. Chỉ khi báo hoàn tất, cắm LAN và reboot thủ công:
 
 ```bash
-sudo python3 scripts/install.py --apply
-grep '^FDT=' /boot/uEnv.txt
-sudo cmp dist/meson-sm1-magicsee-n5-max.dtb /boot/dtb/amlogic/meson-sm1-magicsee-n5-max.dtb
-sudo sync
 sudo reboot
 ```
+
+Nếu muốn preview không ghi: `sudo bash install.sh --dry-run`. Muốn cài thẳng từ Git: `git clone https://github.com/HoAnTrieu/magicsee-n5-max-100mb-ethernet.git` rồi chạy `sudo bash install.sh` trong thư mục vừa clone.
+
+Các lệnh Python riêng vẫn có cho maintainer, nhưng người mới chỉ cần `install.sh`.
 
 FDT cần chọn:
 
@@ -64,7 +62,7 @@ FDT cần chọn:
 FDT=/dtb/amlogic/meson-sm1-magicsee-n5-max.dtb
 ```
 
-`cmp` thành công không in gì. Nếu script hoặc `cmp` báo lỗi, xử lý trước khi reboot. Thư mục `reference/` chỉ dùng kiểm chứng, không copy vào `/boot`.
+`cmp` thành công không in gì. Nếu script báo lỗi, xử lý trước khi reboot. Thư mục `reference/` chỉ dùng kiểm chứng, không copy vào `/boot`.
 
 ## Những gì installer làm
 

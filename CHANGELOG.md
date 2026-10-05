@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 — 2026-10-05
+
+- Add root install.sh: one-command beginner installation, optional dry-run, manual reboot guidance only after success.
+- Simplify English/Vietnamese quick-start instructions for GitHub clone or MobaXterm ZIP upload.
+- Replace the placeholder clone URL with the live repository link so `git clone` works for newcomers.
+- Document the optional `BONUS/` eMMC read-only guard (lock/unlock scripts, guide, benchmark log) in both READMEs and the release notes, and package it in the ZIP and SHA256SUMS.
+- Retain the exact hardware-tested DTB and all existing installer checks.
+
 ## 1.0.0 — 2026-10-05
 
 - Fix the tested N5 Max S905X3 LAN path by selecting internal PHY@8 and RMII, disabling the external MDIO branch and dropping external pinctrl/RGMII delay references.

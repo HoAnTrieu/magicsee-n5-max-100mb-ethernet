@@ -1,6 +1,6 @@
 {
   "name": "magicsee-n5-max-ethernet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "tested_kernel": "6.12.111-ophub",
   "source": "src/meson-sm1-magicsee-n5-max.dts",
   "candidate": "dist/meson-sm1-magicsee-n5-max.dtb",

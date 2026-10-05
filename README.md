@@ -1,6 +1,6 @@
 # Magicsee N5 Max S905X3 Ethernet fix for Armbian
 
-[Tiếng Việt](README.vi.md) · [Technical analysis, Vietnamese](docs/TECHNICAL_ANALYSIS.md) · [Hardware evidence](docs/VALIDATION.md) · [Rollback](docs/ROLLBACK.md)
+[Tiếng Việt](README.vi.md) · [Technical analysis, Vietnamese](docs/TECHNICAL_ANALYSIS.md) · [Hardware evidence](docs/VALIDATION.md) · [Rollback](docs/ROLLBACK.md) · [Bonus: eMMC guard](BONUS/README-eMMC-GUARD.md)
 
 **Verified on one Magicsee N5 Max S905X3: internal PHY attached, RMII, 100 Mbps Full Duplex, carrier 1 and DHCP.** This project preserves the working X96 Max+ 100M boot configuration and changes only six Ethernet properties. Long-term stability and interface-bound bidirectional throughput have not been measured. A later user-reported transfer estimate is recorded separately in validation.
 
@@ -44,36 +44,36 @@ Link is Up - 100Mbps/Full - flow control rx/tx
 
 The successful internal PHY link confirms the functional LAN path on the tested device. See [validation](docs/VALIDATION.md) for what was and was not measured.
 
-## Quick deployment
+## Quick deployment: download, run one script, reboot manually
 
-Start from a box that already boots reliably with the tested rescue DTB. Keep SD recovery access available and keep the rescue file in place.
+Start from a box that already boots with the tested rescue DTB and **6.12.111-ophub** kernel. The script handles release/kernel checks, backup, copying the new DTB and changing only FDT. Keep SD recovery access available.
 
-1. Download and extract this project. Windows users can upload the **whole project folder** using MobaXterm's SFTP panel.
-2. SSH into Armbian and enter that folder.
-3. Verify, preview, then apply:
+```bash
+git clone https://github.com/HoAnTrieu/magicsee-n5-max-100mb-ethernet.git
+cd magicsee-n5-max-100mb-ethernet
+sudo bash install.sh
+```
+
+If Git is missing: `sudo apt-get update && sudo apt-get install git`.
+
+Alternatively, extract the ZIP and upload the whole project folder to your Armbian home using MobaXterm SFTP:
 
 ```bash
 cd ~/magicsee-n5-max-ethernet
-sha256sum -c SHA256SUMS
-python3 scripts/verify.py
-sudo python3 scripts/install.py --dry-run
-sudo python3 scripts/install.py --apply
-grep '^FDT=' /boot/uEnv.txt
-sudo sync
+sudo bash install.sh
+```
+
+Only after the script reports success, connect LAN and reboot manually:
+
+```bash
 sudo reboot
 ```
 
-The selected line must become:
+For a read-only preview: `sudo bash install.sh --dry-run`.
 
-```text
-FDT=/dtb/amlogic/meson-sm1-magicsee-n5-max.dtb
-```
+`install.sh` delegates boot-file changes to the guarded Python installer. Beginners do not need to run the Python files separately. It retains rescue, backs up uEnv and selects `/dtb/amlogic/meson-sm1-magicsee-n5-max.dtb` without automatic reboot. If already selected with the correct binary, no changes are made.
 
-The installer writes only the new DTB, an install lock, the uEnv backup and the new uEnv selection. It copies the original uEnv to `/boot/uEnv.txt.n5max-backup`, preserves every byte except the FDT value, and never writes the rescue DTB. Reboot is manual.
-
-**If your box already runs this exact DTB successfully, keep it.** The installer recognizes an already installed release and performs no boot-file changes.
-
-The installer stops on an untested kernel/baseline, multiple FDT lines, an active `extlinux.conf`, a conflicting backup, a different pre-existing candidate, or an alias to the rescue. There is no force option. See [deployment details](docs/DEPLOYMENT.md).
+An untested kernel/baseline, active extlinux.conf, conflicting backup/candidate or invalid FDT selection stops installation. There is no force option. See [deployment details](docs/DEPLOYMENT.md) for guards and the lower-level commands.
 
 ## Check after reboot
 
@@ -126,6 +126,27 @@ FDT=/dtb/amlogic/meson-sm1-x96-max-plus-100m.dtb
 
 Keep root UUID, APPEND, LINUX and INITRD unchanged. [Full rollback procedure](docs/ROLLBACK.md).
 
+## Bonus (optional): eMMC read-only guard
+
+`BONUS/` is an extra, unrelated to the Ethernet fix, for boxes that boot Armbian from SD and must keep the internal eMMC untouched:
+
+| File | Purpose |
+|---|---|
+| `BONUS/lock-emmc.sh` | Set the eMMC block device read-only, re-arm it after every boot through a systemd service and a udev rule, and block the usual `armbian-install` path |
+| `BONUS/unlock-emmc.sh` | Remove everything the lock created and return the eMMC to read-write |
+| `BONUS/README-eMMC-GUARD.md` | Full walkthrough (Vietnamese): safety checks, verification after reboot, cheat sheet and what the guard does **not** do |
+| `BONUS/LOG_OF_N5_MAX_BENCH.txt` | CPU/storage benchmark log from the tested box |
+
+Nothing in this project needs the bonus, and `install.sh` never runs it. It is a **reversible software lock**, not hardware write-protect: it does not format, does not touch the firmware or bootloader, and it refuses to run when `/` or `/boot` already lives on the eMMC. Read the BONUS README first and confirm your device names yourself:
+
+```bash
+lsblk -o NAME,SIZE,RO,TYPE,FSTYPE,MOUNTPOINTS
+sudo ./BONUS/lock-emmc.sh --apply     # type the requested confirmation exactly
+sudo blockdev --getro /dev/mmcblk2     # 1 = locked
+```
+
+Use `sudo ./BONUS/unlock-emmc.sh --remove` to undo it. Do not run the lock on a machine whose OS runs from eMMC.
+
 ## Build and verify
 
 On Ubuntu/Debian, install tools, then build:
@@ -156,6 +177,8 @@ The release was built with **dtc 1.7.0**. The baseline rebuild with that version
 | `dist/` | Exact hardware-tested compiled DTB |
 | `reference/` | Exact rescue DTS/DTB for comparison; not installation payloads |
 | `patches/` | Two-hunk Ethernet-only diff |
+| `install.sh` | One-command beginner install; reports when to reboot manually |
+| `BONUS/` | Optional eMMC read-only guard scripts and their guide |
 | `scripts/` | Real dtc build, semantic verifier, guarded installer, reduced collector and release packager |
 | `tests/` | Disposable boot fixtures testing rescue/backup/config protection |
 | `evidence/` | Redacted hardware excerpts and build results |
@@ -169,12 +192,12 @@ The release was built with **dtc 1.7.0**. The baseline rebuild with that version
 | Rescue DTB | `386cdd6714f2e507db8b443c263c1a7d5fb7facc24bce9c8b2208d8bfe5c67eb` |
 | Tested fix DTB | `03c8877650e9b7d7feda656db775dcd591ba20f6528665c2367537c8888fbffd` |
 
-`SHA256SUMS` covers the public project files. Checksums detect changed files; they are not a signature or a guarantee of hardware compatibility.
+`SHA256SUMS` covers the public project files, including `BONUS/`. Checksums detect changed files; they are not a signature or a guarantee of hardware compatibility.
 
 ## Contributing and publishing
 
 For a new board revision, provide a [reduced report](docs/PRIVACY.md), baseline checksum, exact kernel and actual link result. Do not substitute whole vendor/CoreELEC DTBs or port numeric phandles/clock IDs blindly. See [CONTRIBUTING](CONTRIBUTING.md).
 
-A proposed v1.0.0 release and GitHub web/Git instructions are ready in [PUBLISHING](docs/PUBLISHING.md). No public repository or release has been created automatically. Run `python3 scripts/package.py` to regenerate an archive after verification.
+This project lives at [github.com/HoAnTrieu/magicsee-n5-max-100mb-ethernet](https://github.com/HoAnTrieu/magicsee-n5-max-100mb-ethernet). The v1.0.1 tag, release text from [RELEASE_NOTES](docs/RELEASE_NOTES.md) and the GitHub web/Git steps are described in [PUBLISHING](docs/PUBLISHING.md). Run `python3 scripts/package.py` to regenerate the manifest and archive after verification.
 
 New project code/documentation is GPL-2.0-only. Inherited Linux Device Tree content retains its upstream terms; exact upstream source notices could not be recovered from the decompiled baseline; see [LICENSE](LICENSE), [NOTICE](NOTICE.md) and [sources](docs/SOURCES.md).

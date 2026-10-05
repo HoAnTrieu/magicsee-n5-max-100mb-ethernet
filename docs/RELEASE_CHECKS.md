@@ -1,6 +1,6 @@
 # Release verification — 2026-10-05
 
-These checks run locally before packaging; GitHub CI has not run because the repository has not been published.
+These checks run locally before packaging. GitHub CI has not run for this working tree yet; it runs on every push to the published repository.
 
 | Check | Result |
 |---|---|

@@ -9,9 +9,9 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLIC_DIRS = {'src', 'dist', 'reference', 'patches', 'scripts', 'tests', 'docs', 'evidence', '.github'}
+PUBLIC_DIRS = {'src', 'dist', 'reference', 'patches', 'scripts', 'tests', 'docs', 'evidence', '.github', 'BONUS'}
 PUBLIC_ROOT = {'README.md', 'README.vi.md', 'LICENSE', 'NOTICE.md', 'CHANGELOG.md',
-               'CONTRIBUTING.md', 'project.json', '.gitignore', '.gitattributes'}
+               'CONTRIBUTING.md', 'project.json', '.gitignore', '.gitattributes', 'install.sh'}
 
 
 def public_files():
@@ -44,8 +44,16 @@ def main():
             raise ValueError('Tested payload changed; review evidence before release: ' + name)
     files = public_files()
     manifest = ROOT/'SHA256SUMS'
-    manifest.write_text(''.join(hashlib.sha256(f.read_bytes()).hexdigest()+'  '+
-                              f.relative_to(ROOT).as_posix()+'\n' for f in files))
+    # Manifest must match what git stores and what CI checks out: LF (see .gitattributes).
+    # write_text would translate to CRLF on Windows and break `sha256sum -c` on Linux.
+    lines = []
+    for f in files:
+        data = f.read_bytes()
+        if b'\r\n' in data and f.suffix not in {'.dtb', '.zip'}:
+            raise ValueError('CRLF line endings; normalize to LF before packaging: ' +
+                             f.relative_to(ROOT).as_posix())
+        lines.append(hashlib.sha256(data).hexdigest()+'  '+f.relative_to(ROOT).as_posix()+'\n')
+    manifest.write_bytes(''.join(lines).encode('utf-8'))
     subprocess.run([sys.executable, 'scripts/verify.py'], cwd=ROOT, check=True)
     subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-v'],
                    cwd=ROOT, check=True)
