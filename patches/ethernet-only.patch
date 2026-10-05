@@ -1,0 +1,24 @@
+--- reference/meson-sm1-x96-max-plus-100m.dts
++++ src/meson-sm1-magicsee-n5-max.dts
+@@ -188,11 +188,8 @@
+ 			tx-fifo-depth = <0x1000>;
+ 			status = "okay";
+ 			power-domains = <0x03 0x06>;
+-			pinctrl-0 = <0x07 0x08>;
+-			pinctrl-names = "default";
+-			phy-handle = <0x09>;
+-			phy-mode = "rgmii";
+-			amlogic,tx-delay-ns = <0x02>;
++			phy-handle = <0xe7>;
++			phy-mode = "rmii";
+ 			snps,aal;
+ 			snps,rxpbl = <0x08>;
+ 			snps,txpbl = <0x08>;
+@@ -1930,6 +1927,7 @@
+ 				phandle = <0xe4>;
+ 
+ 				mdio@0 {
++					status = "disabled";
+ 					reg = <0x00>;
+ 					#address-cells = <0x01>;
+ 					#size-cells = <0x00>;

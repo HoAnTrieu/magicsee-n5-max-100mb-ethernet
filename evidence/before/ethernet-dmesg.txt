@@ -1,0 +1,2 @@
+[   33.303449] meson8b-dwmac ff3f0000.ethernet eth0: validation of rgmii with support 00,00000000,00000000,00006280 and advertisement 00,00000000,00000000,00006280 failed: -EINVAL
+[   33.349003] meson8b-dwmac ff3f0000.ethernet eth0: __stmmac_open: Cannot attach to PHY (error: -22)

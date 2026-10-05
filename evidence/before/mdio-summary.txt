@@ -1,0 +1,6 @@
+External selected endpoint: mdio_mux-0.0:00
+phy_id: 0x00000000
+No bound driver symlink in captured listing
+Internal endpoint present: mdio_mux-0.1:08
+Driver: Meson G12A Internal PHY
+PHY ID 0x01803301 is declared by DT compatible; not an independent PHYID register measurement

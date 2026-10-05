@@ -1,0 +1,593 @@
+CPU benchmark
+
+		##LSCPU
+Architecture:                aarch64
+  CPU op-mode(s):            32-bit, 64-bit
+  Byte Order:                Little Endian
+CPU(s):                      4
+  On-line CPU(s) list:       0-3
+Vendor ID:                   ARM
+  Model name:                Cortex-A55
+    Model:                   0
+    Thread(s) per core:      1
+    Core(s) per cluster:     4
+    Socket(s):               -
+    Cluster(s):              1
+    Stepping:                r1p0
+    CPU(s) scaling MHz:      82%
+    CPU max MHz:             2100.0000
+    CPU min MHz:             1000.0000
+    BogoMIPS:                48.00
+    Flags:                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp
+Caches (sum of all):
+  L1d:                       128 KiB (4 instances)
+  L1i:                       128 KiB (4 instances)
+  L2:                        256 KiB (1 instance)
+Vulnerabilities:
+  Gather data sampling:      Not affected
+  Indirect target selection: Not affected
+  Itlb multihit:             Not affected
+  L1tf:                      Not affected
+  Mds:                       Not affected
+  Meltdown:                  Not affected
+  Mmio stale data:           Not affected
+  Reg file data sampling:    Not affected
+  Retbleed:                  Not affected
+  Spec rstack overflow:      Not affected
+  Spec store bypass:         Not affected
+  Spectre v1:                Mitigation; __user pointer sanitization
+  Spectre v2:                Not affected
+  Srbds:                     Not affected
+  Tsa:                       Not affected
+  Tsx async abort:           Not affected
+  Vmscape:                   Not affected	
+		##cpufreq-info
+sysbench cpu --threads=1 --cpu-max-prime=20000 run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Prime numbers limit: 20000
+
+Initializing worker threads...
+
+Threads started!
+
+CPU speed:
+    events per second:   416.03
+
+General statistics:
+    total time:                          10.0014s
+    total number of events:              4162
+
+Latency (ms):
+         min:                                    2.39
+         avg:                                    2.40
+         max:                                    3.19
+         95th percentile:                        2.39
+         sum:                                 9996.85
+
+Threads fairness:
+    events (avg/stddev):           4162.0000/0.00
+    execution time (avg/stddev):   9.9968/0.00
+
+admin@armbian:~$ sysbench cpu --threads=4 --cpu-max-prime=20000 run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 4
+Initializing random number generator from current time
+
+
+Prime numbers limit: 20000
+
+Initializing worker threads...
+
+Threads started!
+
+CPU speed:
+    events per second:  1648.84
+
+General statistics:
+    total time:                          10.0045s
+    total number of events:              16502
+
+Latency (ms):
+         min:                                    2.39
+         avg:                                    2.42
+         max:                                    8.90
+         95th percentile:                        2.43
+         sum:                                39988.54
+
+Threads fairness:
+    events (avg/stddev):           4125.5000/4.72
+    execution time (avg/stddev):   9.9971/0.00
+
+
+##Bandwidth RAM
+admin@armbian:~$ mbw 512
+Long uses 8 bytes. Allocating 2*67108864 elements = 1073741824 bytes of memory.
+Using 262144 bytes as blocks for memcpy block copy test.
+Getting down to business... Doing 10 runs per test.
+0       Method: MEMCPY  Elapsed: 0.24080        MiB: 512.00000  Copy: 2126.211 MiB/s
+1       Method: MEMCPY  Elapsed: 0.24840        MiB: 512.00000  Copy: 2061.167 MiB/s
+2       Method: MEMCPY  Elapsed: 0.24084        MiB: 512.00000  Copy: 2125.875 MiB/s
+3       Method: MEMCPY  Elapsed: 0.24075        MiB: 512.00000  Copy: 2126.714 MiB/s
+4       Method: MEMCPY  Elapsed: 0.24072        MiB: 512.00000  Copy: 2126.935 MiB/s
+5       Method: MEMCPY  Elapsed: 0.24746        MiB: 512.00000  Copy: 2069.055 MiB/s
+6       Method: MEMCPY  Elapsed: 0.24079        MiB: 512.00000  Copy: 2126.369 MiB/s
+7       Method: MEMCPY  Elapsed: 0.24090        MiB: 512.00000  Copy: 2125.381 MiB/s
+8       Method: MEMCPY  Elapsed: 0.24066        MiB: 512.00000  Copy: 2127.439 MiB/s
+9       Method: MEMCPY  Elapsed: 0.24111        MiB: 512.00000  Copy: 2123.486 MiB/s
+AVG     Method: MEMCPY  Elapsed: 0.24224        MiB: 512.00000  Copy: 2113.575 MiB/s
+0       Method: DUMB    Elapsed: 0.24858        MiB: 512.00000  Copy: 2059.707 MiB/s
+1       Method: DUMB    Elapsed: 0.24141        MiB: 512.00000  Copy: 2120.847 MiB/s
+2       Method: DUMB    Elapsed: 0.24140        MiB: 512.00000  Copy: 2120.970 MiB/s
+3       Method: DUMB    Elapsed: 0.24173        MiB: 512.00000  Copy: 2118.101 MiB/s
+4       Method: DUMB    Elapsed: 0.24858        MiB: 512.00000  Copy: 2059.724 MiB/s
+5       Method: DUMB    Elapsed: 0.24156        MiB: 512.00000  Copy: 2119.521 MiB/s
+6       Method: DUMB    Elapsed: 0.24136        MiB: 512.00000  Copy: 2121.277 MiB/s
+7       Method: DUMB    Elapsed: 0.24168        MiB: 512.00000  Copy: 2118.478 MiB/s
+8       Method: DUMB    Elapsed: 0.24407        MiB: 512.00000  Copy: 2097.742 MiB/s
+9       Method: DUMB    Elapsed: 0.24589        MiB: 512.00000  Copy: 2082.240 MiB/s
+AVG     Method: DUMB    Elapsed: 0.24363        MiB: 512.00000  Copy: 2101.577 MiB/s
+0       Method: MCBLOCK Elapsed: 0.11715        MiB: 512.00000  Copy: 4370.428 MiB/s
+1       Method: MCBLOCK Elapsed: 0.11692        MiB: 512.00000  Copy: 4378.950 MiB/s
+2       Method: MCBLOCK Elapsed: 0.11693        MiB: 512.00000  Copy: 4378.726 MiB/s
+3       Method: MCBLOCK Elapsed: 0.11714        MiB: 512.00000  Copy: 4370.876 MiB/s
+4       Method: MCBLOCK Elapsed: 0.11715        MiB: 512.00000  Copy: 4370.465 MiB/s
+5       Method: MCBLOCK Elapsed: 0.11701        MiB: 512.00000  Copy: 4375.807 MiB/s
+6       Method: MCBLOCK Elapsed: 0.12160        MiB: 512.00000  Copy: 4210.422 MiB/s
+7       Method: MCBLOCK Elapsed: 0.12266        MiB: 512.00000  Copy: 4174.038 MiB/s
+8       Method: MCBLOCK Elapsed: 0.11709        MiB: 512.00000  Copy: 4372.742 MiB/s
+9       Method: MCBLOCK Elapsed: 0.11692        MiB: 512.00000  Copy: 4378.988 MiB/s
+AVG     Method: MCBLOCK Elapsed: 0.11806        MiB: 512.00000  Copy: 4336.866 MiB/s
+admin@armbian:~$ sysbench memory \
+  --memory-block-size=1M \
+  --memory-total-size=10G \
+  run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 1024KiB
+  total size: 10240MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 10240 ( 4819.54 per second)
+
+10240.00 MiB transferred (4819.54 MiB/sec)
+
+
+General statistics:
+    total time:                          2.1219s
+    total number of events:              10240
+
+Latency (ms):
+         min:                                    0.19
+         avg:                                    0.21
+         max:                                    0.40
+         95th percentile:                        0.23
+         sum:                                 2114.46
+
+Threads fairness:
+    events (avg/stddev):           10240.0000/0.00
+    execution time (avg/stddev):   2.1145/0.00
+
+##Storage (SD card)
+admin@armbian:~$ lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,MODEL
+NAME          SIZE FSTYPE MOUNTPOINTS
+                                MODEL
+mmcblk1      59.5G
+├─mmcblk1p1   511M vfat   /boot
+└─mmcblk1p2    59G ext4   /
+mmcblk2      29.1G
+mmcblk2boot0    4M
+mmcblk2boot1    4M
+admin@armbian:~$ mkdir -p ~/benchmark
+cd ~/benchmark
+admin@armbian:~/benchmark$ fio --name=seqwrite \
+    --filename=testfile \
+    --size=1G \
+    --bs=1M \
+    --rw=write \
+    --direct=1 \
+    --iodepth=1
+seqwrite: (g=0): rw=write, bs=(R) 1024KiB-1024KiB, (W) 1024KiB-1024KiB, (T) 1024KiB-1024KiB, ioengine=psync, iodepth=1
+fio-3.36
+Starting 1 process
+seqwrite: Laying out IO file (1 file / 1024MiB)
+Jobs: 1 (f=1): [W(1)][100.0%][w=9206KiB/s][w=8 IOPS][eta 00m:00s]
+seqwrite: (groupid=0, jobs=1): err= 0: pid=14649: Mon Oct  5 17:25:20 2026
+  write: IOPS=8, BW=8811KiB/s (9022kB/s)(1024MiB/119010msec); 0 zone resets
+    clat (msec): min=102, max=429, avg=116.04, stdev=47.14
+     lat (msec): min=102, max=430, avg=116.19, stdev=47.15
+    clat percentiles (msec):
+     |  1.00th=[  104],  5.00th=[  104], 10.00th=[  104], 20.00th=[  104],
+     | 30.00th=[  104], 40.00th=[  105], 50.00th=[  105], 60.00th=[  105],
+     | 70.00th=[  105], 80.00th=[  110], 90.00th=[  113], 95.00th=[  176],
+     | 99.00th=[  405], 99.50th=[  414], 99.90th=[  426], 99.95th=[  430],
+     | 99.99th=[  430]
+   bw (  KiB/s): min= 2048, max=10240, per=100.00%, avg=8814.18, stdev=2099.96, samples=237
+   iops        : min=    2, max=   10, avg= 8.61, stdev= 2.05, samples=237
+  lat (msec)   : 250=97.56%, 500=2.44%
+  cpu          : usr=0.18%, sys=0.49%, ctx=9218, majf=0, minf=18
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,1024,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=8811KiB/s (9022kB/s), 8811KiB/s-8811KiB/s (9022kB/s-9022kB/s), io=1024MiB (1074MB), run=119010-119010msec
+
+Disk stats (read/write):
+  mmcblk1: ios=0/5144, sectors=0/2096734, merge=0/37, ticks=0/320178, in_queue=320179, util=99.59%
+
+
+admin@armbian:~/benchmark$ fio --name=seqread \
+    --filename=testfile \
+    --size=1G \
+    --bs=1M \
+    --rw=read \
+    --direct=1 \
+    --iodepth=1
+seqread: (g=0): rw=read, bs=(R) 1024KiB-1024KiB, (W) 1024KiB-1024KiB, (T) 1024KiB-1024KiB, ioengine=psync, iodepth=1
+fio-3.36
+Starting 1 process
+Jobs: 1 (f=1): [R(1)][100.0%][r=11.0MiB/s][r=11 IOPS][eta 00m:00s]
+seqread: (groupid=0, jobs=1): err= 0: pid=17015: Mon Oct  5 17:29:16 2026
+  read: IOPS=11, BW=11.3MiB/s (11.9MB/s)(1024MiB/90258msec)
+    clat (usec): min=87785, max=94965, avg=88119.14, stdev=333.01
+     lat (usec): min=87787, max=94967, avg=88121.25, stdev=333.03
+    clat percentiles (usec):
+     |  1.00th=[87557],  5.00th=[87557], 10.00th=[87557], 20.00th=[87557],
+     | 30.00th=[87557], 40.00th=[87557], 50.00th=[88605], 60.00th=[88605],
+     | 70.00th=[88605], 80.00th=[88605], 90.00th=[88605], 95.00th=[88605],
+     | 99.00th=[88605], 99.50th=[88605], 99.90th=[94897], 99.95th=[94897],
+     | 99.99th=[94897]
+   bw (  KiB/s): min=10240, max=12312, per=100.00%, avg=11625.93, stdev=963.66, samples=180
+   iops        : min=   10, max=   12, avg=11.34, stdev= 0.94, samples=180
+  lat (msec)   : 100=100.00%
+  cpu          : usr=0.03%, sys=0.56%, ctx=5325, majf=0, minf=274
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=1024,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=11.3MiB/s (11.9MB/s), 11.3MiB/s-11.3MiB/s (11.9MB/s-11.9MB/s), io=1024MiB (1074MB), run=90258-90258msec
+
+Disk stats (read/write):
+  mmcblk1: ios=5105/4, sectors=2091008/32, merge=0/0, ticks=246499/142, in_queue=246642, util=99.70%
+admin@armbian:~/benchmark$ fio --name=rand4k \
+    --filename=testfile \
+    --size=512M \
+    --bs=4k \
+    --rw=randrw \
+    --rwmixread=70 \
+    --direct=1 \
+    --iodepth=8 \
+    --runtime=60 \
+    --time_based
+rand4k: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=psync, iodepth=8
+fio-3.36
+Starting 1 process
+note: both iodepth >= 1 and synchronous I/O engine are selected, queue depth will be capped at 1
+Jobs: 1 (f=1): [m(1)][100.0%][r=4152KiB/s,w=1652KiB/s][r=1038,w=413 IOPS][eta 00m:00s]
+rand4k: (groupid=0, jobs=1): err= 0: pid=18082: Mon Oct  5 17:31:46 2026
+  read: IOPS=1019, BW=4077KiB/s (4174kB/s)(239MiB/60001msec)
+    clat (usec): min=493, max=2998, avg=596.21, stdev=35.52
+     lat (usec): min=494, max=3000, avg=596.87, stdev=35.65
+    clat percentiles (usec):
+     |  1.00th=[  545],  5.00th=[  562], 10.00th=[  570], 20.00th=[  578],
+     | 30.00th=[  586], 40.00th=[  594], 50.00th=[  594], 60.00th=[  603],
+     | 70.00th=[  611], 80.00th=[  611], 90.00th=[  619], 95.00th=[  627],
+     | 99.00th=[  693], 99.50th=[  717], 99.90th=[  791], 99.95th=[  938],
+     | 99.99th=[ 2474]
+   bw (  KiB/s): min= 1819, max= 4496, per=100.00%, avg=4080.21, stdev=326.40, samples=119
+   iops        : min=  454, max= 1124, avg=1019.97, stdev=81.71, samples=119
+  write: IOPS=433, BW=1735KiB/s (1777kB/s)(102MiB/60001msec); 0 zone resets
+    clat (usec): min=641, max=50510, avg=880.90, stdev=1177.83
+     lat (usec): min=642, max=50512, avg=882.33, stdev=1177.84
+    clat percentiles (usec):
+     |  1.00th=[  652],  5.00th=[  660], 10.00th=[  676], 20.00th=[  693],
+     | 30.00th=[  709], 40.00th=[  717], 50.00th=[  725], 60.00th=[  734],
+     | 70.00th=[  742], 80.00th=[  758], 90.00th=[  775], 95.00th=[  881],
+     | 99.00th=[ 3458], 99.50th=[ 3556], 99.90th=[11731], 99.95th=[33817],
+     | 99.99th=[36439]
+   bw (  KiB/s): min=  673, max= 2028, per=100.00%, avg=1737.62, stdev=161.78, samples=119
+   iops        : min=  168, max=  507, avg=434.01, stdev=40.45, samples=119
+  lat (usec)   : 500=0.04%, 750=92.52%, 1000=6.04%
+  lat (msec)   : 2=0.06%, 4=1.25%, 10=0.01%, 20=0.06%, 50=0.02%
+  lat (msec)   : 100=0.01%
+  cpu          : usr=1.35%, sys=5.14%, ctx=87540, majf=0, minf=22
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=61149,26032,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=8
+
+Run status group 0 (all jobs):
+   READ: bw=4077KiB/s (4174kB/s), 4077KiB/s-4077KiB/s (4174kB/s-4174kB/s), io=239MiB (250MB), run=60001-60001msec
+  WRITE: bw=1735KiB/s (1777kB/s), 1735KiB/s-1735KiB/s (1777kB/s-1777kB/s), io=102MiB (107MB), run=60001-60001msec
+
+Disk stats (read/write):
+  mmcblk1: ios=60900/25927, sectors=487200/207416, merge=0/0, ticks=35149/22132, in_queue=57281, util=95.71%
+
+
+		##Nhiệt độ + throttling
+indie:
+=== TEMP ===
+/sys/class/thermal/thermal_zone0/temp: 42.3 C
+/sys/class/thermal/thermal_zone1/temp: 43.8 C
+
+=== CPU FREQ ===
+/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq:1800000
+/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq:1800000
+/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq:1800000
+/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq:1800000
+
+
+5minute:
+=== TEMP ===
+/sys/class/thermal/thermal_zone0/temp: 53.7 C
+/sys/class/thermal/thermal_zone1/temp: 53.3 C
+
+=== CPU FREQ ===
+/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq:2100000
+/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq:2100000
+/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq:2100000
+/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq:2100000
+
+15minute:
+=== TEMP ===
+/sys/class/thermal/thermal_zone0/temp: 54.4 C
+/sys/class/thermal/thermal_zone1/temp: 54.0 C
+
+=== CPU FREQ ===
+/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq:2100000
+/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq:2100000
+/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq:2100000
+/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq:2100000
+
+
+		##Stress RAM + CPU toàn hệ thống
+admin@armbian:~$ dmesg -T | tail -100
+[Mon Oct  5 16:43:37 2026] systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Expecting device dev-disk-by\x2dlabel-BOOT.device - /dev/disk/by-label/BOOT...
+[Mon Oct  5 16:43:37 2026] systemd[1]: Expecting device dev-ttyAML0.device - /dev/ttyAML0...
+[Mon Oct  5 16:43:37 2026] systemd[1]: Reached target integritysetup.target - Local Integrity Protected Volumes.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Reached target slices.target - Slice Units.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Reached target swap.target - Swaps.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Reached target time-set.target - System Time Set.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Reached target veritysetup.target - Local Verity Protected Volumes.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on rpcbind.socket - RPCbind Server Activation Socket.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on syslog.socket - Syslog Socket.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on systemd-fsckd.socket - fsck to fsckd communication Socket.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on systemd-journald.socket - Journal Socket.
+[Mon Oct  5 16:43:37 2026] systemd[1]: systemd-pcrextend.socket - TPM2 PCR Extension (Varlink) was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[Mon Oct  5 16:43:37 2026] systemd[1]: Mounting dev-hugepages.mount - Huge Pages File System...
+[Mon Oct  5 16:43:37 2026] systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+[Mon Oct  5 16:43:37 2026] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+[Mon Oct  5 16:43:37 2026] systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+[Mon Oct  5 16:43:37 2026] systemd[1]: Starting systemd-journald.service - Journal Service...
+[Mon Oct  5 16:43:37 2026] systemd[1]: auth-rpcgss-module.service - Kernel Module supporting RPCSEC_GSS was skipped because of an unmet condition check (ConditionPathExists=/etc/krb5.keytab).
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting fake-hwclock-load.service - Restore the current clock...
+[Mon Oct  5 16:43:38 2026] (-hwclock)[417]: fake-hwclock-load.service: Referenced but unset environment variable evaluates to an empty string: FORCE
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting keyboard-setup.service - Set the console keyboard layout...
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
+[Mon Oct  5 16:43:38 2026] systemd[1]: systemd-fsck-root.service - File System Check on Root Device was skipped because of an unmet condition check (ConditionPathIsReadWrite=!/).
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+[Mon Oct  5 16:43:38 2026] systemd[1]: systemd-pcrmachine.service - TPM2 PCR Machine ID Measurement was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+[Mon Oct  5 16:43:38 2026] systemd[1]: systemd-tpm2-setup-early.service - TPM2 SRK Setup (Early) was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[Mon Oct  5 16:43:38 2026] systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+[Mon Oct  5 16:43:38 2026] systemd-journald[416]: Collecting audit messages is disabled.
+[Mon Oct  5 16:43:38 2026] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@lists.linux.dev
+[Mon Oct  5 16:43:38 2026] systemd[1]: Mounted dev-hugepages.mount - Huge Pages File System.
+[Mon Oct  5 16:43:38 2026] systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+[Mon Oct  5 16:43:38 2026] systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+[Mon Oct  5 16:43:38 2026] EXT4-fs (mmcblk1p2): re-mounted a75fbba3-7b2b-4e3f-bdfd-0fe5144b7866.
+[Mon Oct  5 16:43:38 2026] systemd[1]: Started systemd-journald.service - Journal Service.
+[Mon Oct  5 16:43:38 2026] systemd-journald[416]: Received client request to flush runtime journal.
+[Mon Oct  5 16:43:39 2026] Registered IR keymap rc-x96max
+[Mon Oct  5 16:43:39 2026] IR NEC protocol handler initialized
+[Mon Oct  5 16:43:39 2026] rc rc1: meson-ir as /devices/platform/soc/ff800000.bus/ff808000.ir/rc/rc1
+[Mon Oct  5 16:43:39 2026] rc rc1: lirc_dev: driver meson-ir registered at minor = 0, raw IR receiver, no transmitter
+[Mon Oct  5 16:43:39 2026] input: meson-ir as /devices/platform/soc/ff800000.bus/ff808000.ir/rc/rc1/input8
+[Mon Oct  5 16:43:39 2026] rc rc1: sw decoder init
+[Mon Oct  5 16:43:39 2026] meson-ir ff808000.ir: receiver initialized
+[Mon Oct  5 16:43:39 2026] mousedev: PS/2 mouse device common for all mice
+[Mon Oct  5 16:43:39 2026] axg-sound-card sound: workaround active: internal PCM chmap controls mapped to device 0
+[Mon Oct  5 16:43:39 2026] meson_vdec: module is from the staging directory, the quality is unknown, you have been warned.
+[Mon Oct  5 16:43:40 2026] panfrost ffe40000.gpu: clock rate = 24000000
+[Mon Oct  5 16:43:40 2026] panfrost ffe40000.gpu: mali-g31 id 0x7093 major 0x0 minor 0x0 status 0x0
+[Mon Oct  5 16:43:40 2026] panfrost ffe40000.gpu: features: 00000000,000027f7, issues: 00000000,00000400
+[Mon Oct  5 16:43:40 2026] panfrost ffe40000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x00000209 Mem:0x1 MMU:0x00002821 AS:0xff JS:0x7
+[Mon Oct  5 16:43:40 2026] panfrost ffe40000.gpu: shader_present=0x1 l2_present=0x1
+[Mon Oct  5 16:43:40 2026] [drm] Initialized panfrost 1.2.0 for ffe40000.gpu on minor 1
+[Mon Oct  5 16:43:40 2026] usb 1-2: 1:1: cannot get freq at ep 0x84
+[Mon Oct  5 16:43:40 2026] usbcore: registered new interface driver snd-usb-audio
+[Mon Oct  5 16:43:40 2026] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[Mon Oct  5 16:43:40 2026] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[Mon Oct  5 16:43:40 2026] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[Mon Oct  5 16:43:41 2026] ath10k_sdio mmc0:0001:1: qca6174 hw3.2 sdio target 0x05030000 chip_id 0x00000000 sub 0000:0000
+[Mon Oct  5 16:43:41 2026] ath10k_sdio mmc0:0001:1: kconfig debug 0 debugfs 0 tracing 0 dfs 1 testmode 0
+[Mon Oct  5 16:43:41 2026] ath10k_sdio mmc0:0001:1: firmware ver WLAN.RMH.4.4.1-00174 api 6 features wowlan,ignore-otp,mfp crc32 7319fa77
+[Mon Oct  5 16:43:41 2026] ath10k_sdio mmc0:0001:1: failed to fetch board data for bus=sdio,vendor=0271,device=050a,subsystem-vendor=0000,subsystem-device=0000 from ath10k/QCA6174/hw3.0/board-2.bin
+[Mon Oct  5 16:43:41 2026] ath10k_sdio mmc0:0001:1: board_file api 1 bmi_id N/A crc32 ed5f849a
+[Mon Oct  5 16:43:41 2026] RPC: Registered named UNIX socket transport module.
+[Mon Oct  5 16:43:41 2026] RPC: Registered udp transport module.
+[Mon Oct  5 16:43:41 2026] RPC: Registered tcp transport module.
+[Mon Oct  5 16:43:41 2026] RPC: Registered tcp-with-tls transport module.
+[Mon Oct  5 16:43:41 2026] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[Mon Oct  5 16:43:41 2026] meson-gx-mmc ffe03000.mmc: unaligned sg offset 2316, disabling descriptor DMA for transfer
+[Mon Oct  5 16:43:41 2026] ath10k_sdio mmc0:0001:1: htt-ver 3.87 wmi-op 4 htt-op 3 cal otp max-sta 32 raw 0 hwcrypto 1
+[Mon Oct  5 16:43:41 2026] mmc0: queuing unknown CIS tuple 0x01 [d9 01 ff] (3 bytes)
+[Mon Oct  5 16:43:41 2026] mmc0: queuing unknown CIS tuple 0x1a [01 01 00 02 07] (5 bytes)
+[Mon Oct  5 16:43:41 2026] mmc0: queuing unknown CIS tuple 0x1b [c1 41 30 30 ff ff 32 00] (8 bytes)
+[Mon Oct  5 16:43:41 2026] mmc0: queuing unknown CIS tuple 0x14 [] (0 bytes)
+[Mon Oct  5 16:43:41 2026] ath: EEPROM regdomain: 0x6c
+[Mon Oct  5 16:43:41 2026] ath: EEPROM indicates we should expect a direct regpair map
+[Mon Oct  5 16:43:41 2026] ath: Country alpha2 being used: 00
+[Mon Oct  5 16:43:41 2026] ath: Regpair used: 0x6c
+[Mon Oct  5 16:43:55 2026] meson8b-dwmac ff3f0000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+[Mon Oct  5 16:43:55 2026] meson8b-dwmac ff3f0000.ethernet eth0: validation of rgmii with support 00,00000000,00000000,00006280 and advertisement 00,00000000,00000000,00006280 failed: -EINVAL
+[Mon Oct  5 16:43:55 2026] meson8b-dwmac ff3f0000.ethernet eth0: __stmmac_open: Cannot attach to PHY (error: -22)
+[Mon Oct  5 16:44:01 2026] wlan0: authenticate with 54:46:17:c7:05:5d (local address=a0:9d:c1:7a:48:b4)
+[Mon Oct  5 16:44:01 2026] wlan0: send auth to 54:46:17:c7:05:5d (try 1/3)
+[Mon Oct  5 16:44:02 2026] wlan0: authenticated
+[Mon Oct  5 16:44:02 2026] wlan0: associate with 54:46:17:c7:05:5d (try 1/3)
+[Mon Oct  5 16:44:02 2026] wlan0: RX AssocResp from 54:46:17:c7:05:5d (capab=0x1831 status=0 aid=7)
+[Mon Oct  5 16:44:02 2026] wlan0: associated
+[Mon Oct  5 16:44:02 2026] wlan0: Limiting TX power to 30 (30 - 0) dBm as advertised by 54:46:17:c7:05:5d
+[Mon Oct  5 17:36:41 2026] rc rc1: two consecutive events of type space
+
+
+		##Internet
+		
+	Test Windows → N5 Max
+windows:
+>> $sw.Elapsed.TotalSeconds
+87.3 Mbps | 10.9 MB/s | 98.40 sec
+n5 max:
+admin@armbian:~$ nc -l 5001 | pv -rab > /dev/null
+1.00GiB [9.22MiB/s] [9.22MiB/s]
+
+	Test N5 Max → Windows
+N5 max:
+admin@armbian:~$ dd if=/dev/zero bs=1M count=1024 status=progress | nc 192.168.1.33 5002
+1064304640 bytes (1.1 GB, 1015 MiB) copied, 92 s, 11.6 MB/s
+1024+0 records in
+1024+0 records out
+
+Windows: (tôi dừng xớm, chờ lâu quá)
+>> $sw.Elapsed.TotalSeconds
+66.2 Mbps | 8.3 MB/s | 129.79 sec
+
+packetloss:
+PS C:\Users\HAT> ping -f -l 1472 192.168.1.28
+
+Pinging 192.168.1.28 with 1472 bytes of data:
+Reply from 192.168.1.28: bytes=1472 time=1ms TTL=64
+Reply from 192.168.1.28: bytes=1472 time=4ms TTL=64
+Reply from 192.168.1.28: bytes=1472 time=1ms TTL=64
+Reply from 192.168.1.28: bytes=1472 time=1ms TTL=64
+
+Ping statistics for 192.168.1.28:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 1ms, Maximum = 4ms, Average = 1ms
+	
+PS C:\Users\HAT> ping -n 100 192.168.1.28
+
+Pinging 192.168.1.28 with 32 bytes of data:
+Reply from 192.168.1.28: bytes=32 time=1ms TTL=64
+Reply from 192.168.1.28: bytes=32 time=1ms TTL=64
+Ping statistics for 192.168.1.28:
+    Packets: Sent = 100, Received = 100, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 1ms, Maximum = 18ms, Average = 1ms
+	
+admin@armbian:~$ sudo ethtool -S eth0 | grep -Ei \
+"error|err|drop|crc|miss|timeout|fault|overflow"
+[sudo] password for admin:
+     mmc_tx_underflow_error: 0
+     mmc_tx_deferred: 0
+     mmc_tx_carrier_error: 0
+     mmc_rx_crc_error: 0
+     mmc_rx_align_error: 0
+     mmc_rx_run_error: 0
+     mmc_rx_jabber_error: 0
+     mmc_rx_length_error: 0
+     mmc_rx_fifo_overflow: 0
+     mmc_rx_watchdog_error: 0
+     mmc_rx_error: 0
+     mmc_rx_align_err_frames: 0
+     mmc_rx_ipv4_hderr: 0
+     mmc_rx_ipv4_hderr_octets: 0
+     mmc_rx_ipv6_hderr_octets: 0
+     mmc_rx_ipv6_hderr: 0
+     mmc_rx_udp_err: 0
+     mmc_rx_tcp_err: 0
+     mmc_rx_icmp_err: 0
+     mmc_rx_udp_err_octets: 0
+     mmc_rx_tcp_err_octets: 0
+     mmc_rx_icmp_err_octets: 0
+     mmc_tx_gate_overrun_cntr: 0
+     mmc_rx_packet_assembly_err_cntr: 0
+     mmc_rx_packet_smd_err_cntr: 0
+     tx_deferred: 0
+     tx_payload_error: 0
+     tx_ip_header_error: 0
+     overflow_error: 0
+     ipc_csum_error: 0
+     rx_crc_errors: 0
+     rx_gmac_overflow: 0
+     rx_missed_cntr: 0
+     rx_overflow_cntr: 0
+     rx_overflow_irq: 0
+     fatal_bus_error_irq: 0
+     phy_eee_wakeup_error_n: 0
+     ip_hdr_err: 0
+     ip_payload_err: 0
+     timestamp_dropped: 0
+
+		##Test đơn giản hơn bằng HTTP
+(WIFI)
+PS C:\Users\HAT> $s=[double](curl.exe -s -o NUL -w "%{speed_download}" `
+>> "http://192.168.1.29:8088/eth-test.bin")
+PS C:\Users\HAT>
+PS C:\Users\HAT> "{0:N1} Mbps | {1:N1} MB/s" -f ($s*8/1e6),($s/1e6)
+90.8 Mbps | 11.4 MB/s
+
+
+(ETHERNET)
+PS C:\Users\HAT> $s=[double](curl.exe -s -o NUL -w "%{speed_download}" `
+>> "http://192.168.1.28:8088/eth-test.bin")
+PS C:\Users\HAT>
+PS C:\Users\HAT> "{0:N1} Mbps | {1:N1} MB/s" -f ($s*8/1e6),($s/1e6)
+91.9 Mbps | 11.5 MB/s
+
+
+
+Service:
+● emmc-guard.service - Force internal eMMC read-only
+     Loaded: loaded (/etc/systemd/system/emmc-guard.service; enabled; preset: enabled)
+     Active: active (exited) since Mon 2026-10-05 18:44:46 +07; 51ms ago
+    Process: 20609 ExecStart=/usr/local/sbin/emmc-guard (code=exited, status=0/SUCCESS)
+   Main PID: 20609 (code=exited, status=0/SUCCESS)
+        CPU: 11ms
+
+Oct 05 18:44:46 armbian systemd[1]: Starting emmc-guard.service - Force internal eMMC read-only...
+
+Protection is active. Reboot once, then verify with:
+  sudo blockdev --getro /dev/mmcblk2
+  lsblk -o NAME,SIZE,RO,TYPE,MOUNTPOINTS
+  command -v armbian-install
+  sudo armbian-install

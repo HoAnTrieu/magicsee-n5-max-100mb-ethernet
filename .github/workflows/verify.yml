@@ -1,0 +1,15 @@
+name: Verify
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install compiler
+        run: sudo apt-get update && sudo apt-get install -y device-tree-compiler
+      - name: Verify public checksums
+        run: sha256sum -c SHA256SUMS
+      - name: Verify DT and rebuild with real dtc
+        run: bash scripts/build.sh
+      - name: Test installer and report privacy
+        run: python3 -m unittest discover -s tests -v

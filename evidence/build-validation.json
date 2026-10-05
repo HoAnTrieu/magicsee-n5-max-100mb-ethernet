@@ -1,0 +1,92 @@
+{
+  "dtc_version": "Version: DTC 1.7.0",
+  "dtc_compile_exit_code_baseline": 0,
+  "dtc_compile_exit_code_patched": 0,
+  "base_sha256": "386cdd6714f2e507db8b443c263c1a7d5fb7facc24bce9c8b2208d8bfe5c67eb",
+  "patched_sha256": "03c8877650e9b7d7feda656db775dcd591ba20f6528665c2367537c8888fbffd",
+  "base_bytes": 77050,
+  "patched_bytes": 76998,
+  "base_nodes": 542,
+  "patched_nodes": 542,
+  "base_properties": 2305,
+  "patched_properties": 2303,
+  "all_node_paths_preserved": true,
+  "unchanged_property_count": 2300,
+  "all_changes_match_ethernet_allowlist": true,
+  "changes": [
+    {
+      "node": "/soc/bus@ff600000/mdio-multiplexer@4c000/mdio@0",
+      "property": "status",
+      "base_hex": null,
+      "other_hex": "64697361626c656400"
+    },
+    {
+      "node": "/soc/ethernet@ff3f0000",
+      "property": "amlogic,tx-delay-ns",
+      "base_hex": "00000002",
+      "other_hex": null
+    },
+    {
+      "node": "/soc/ethernet@ff3f0000",
+      "property": "phy-handle",
+      "base_hex": "00000009",
+      "other_hex": "000000e7"
+    },
+    {
+      "node": "/soc/ethernet@ff3f0000",
+      "property": "phy-mode",
+      "base_hex": "72676d696900",
+      "other_hex": "726d696900"
+    },
+    {
+      "node": "/soc/ethernet@ff3f0000",
+      "property": "pinctrl-0",
+      "base_hex": "0000000700000008",
+      "other_hex": null
+    },
+    {
+      "node": "/soc/ethernet@ff3f0000",
+      "property": "pinctrl-names",
+      "base_hex": "64656661756c7400",
+      "other_hex": null
+    }
+  ],
+  "memory_reservations_before": [],
+  "memory_reservations_after": [],
+  "baseline_recompile_semantically_equals_original": true,
+  "boot_cpuid_header_preserved": true,
+  "symbol_table_preserved": true,
+  "warning_counts_baseline": {
+    "unit_address_vs_reg": 2,
+    "simple_bus_reg": 2,
+    "avoid_unnecessary_addr_size": 1,
+    "clocks_property": 180,
+    "cooling_device_property": 9,
+    "phys_property": 7,
+    "power_domains_property": 8,
+    "pwms_property": 2,
+    "resets_property": 59,
+    "sound_dai_property": 7,
+    "thermal_sensors_property": 2,
+    "gpios_property": 6
+  },
+  "warning_counts_patched": {
+    "unit_address_vs_reg": 2,
+    "simple_bus_reg": 2,
+    "avoid_unnecessary_addr_size": 1,
+    "clocks_property": 180,
+    "cooling_device_property": 9,
+    "phys_property": 7,
+    "power_domains_property": 8,
+    "pwms_property": 2,
+    "resets_property": 59,
+    "sound_dai_property": 7,
+    "thermal_sensors_property": 2,
+    "gpios_property": 6
+  },
+  "added_normalized_warnings": {},
+  "removed_normalized_warnings": {},
+  "dtbs_check": "not run: exact source/bindings for 6.12.111-ophub unavailable",
+  "hardware_link_validation": "confirmed on one tested device: internal PHY/RMII, 100Mbps Full Duplex, carrier1 and DHCP; see evidence/hardware-validation.json",
+  "postboot_evidence_file": "hardware-validation.json"
+}
